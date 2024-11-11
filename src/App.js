@@ -1,13 +1,17 @@
+import ColorBox from "./components/ColorBox";
+import Counter from "./components/Counter";
+import AlbumFeature from "./features/Album/pages";
+import TodoFeature from "./features/Todo/pages";
 import logo from "./logo.svg";
-import "./App.css";
+// import "./App.css";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>NGUYEN BA KY DEP TRAI</p>
-      </header>
+      <TodoFeature></TodoFeature>
+      {/* <AlbumFeature></AlbumFeature>
+      {/* <ColorBox></ColorBox>
+      <Counter /> */}
     </div>
   );
 }
