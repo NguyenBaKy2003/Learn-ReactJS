@@ -1,36 +1,42 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useForm } from "react-hook-form"; // Importing useForm from react-hook-form
-import InputField from "../../../../components/form-controls/InputField"; // Make sure this path is correct
+import { useForm } from "react-hook-form";
+
+import InputField from "../../../../components/form-controls/InputField";
+
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 TodoForm.propTypes = {
-  onsubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
 };
 
 function TodoForm(props) {
-  // Initialize form with useForm hook
-  const { register, handleSubmit } = useForm({
+  const schema = yup.object({
+    title: yup.string().required("Title is required"),
+  });
+
+  const { onSubmit } = props;
+
+  const form = useForm({
     defaultValues: {
       title: "",
     },
+    resolver: yupResolver(schema),
   });
 
-  // Handle form submission
-  function onSubmit(values) {
-    console.log("Todo Form", values);
-    if (props.onsubmit) {
-      props.onsubmit(values); // Call parent onSubmit if it's passed as a prop
+  function handleFormSubmit(values) {
+    // console.log("Todo Form", values);
+    if (onSubmit) {
+      onSubmit(values);
     }
+    form.reset();
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(handleFormSubmit)}>
       <h3>Todo Form</h3>
-      <InputField
-        name="title"
-        label="Todo" // Correct the spelling of 'label'
-        register={register} // Pass register function from useForm to InputField
-      />
+      <InputField name="title" label="Todo" form={form} />
       <button type="submit">Submit</button>
     </form>
   );

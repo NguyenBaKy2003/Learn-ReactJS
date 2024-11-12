@@ -53,11 +53,18 @@ function TodoFeature() {
 
   function handleTodoFormSubmit(values) {
     console.log("Form Submid:", values);
+    const newTodo = {
+      id: todoList.length + 1,
+      title: values.title,
+      status: "new",
+    };
+    const newTodoList = [...todoList, newTodo];
+    setTodoList(newTodoList);
   }
   return (
     <div>
       <h3>What to do</h3>
-      <TodoForm onsubmit={handleTodoFormSubmit}></TodoForm>
+      <TodoForm onSubmit={handleTodoFormSubmit}></TodoForm>
 
       <h3>Todo List</h3>
       <TodoList todoList={renderTodoList} onTodoClick={handleTodoClick} />
