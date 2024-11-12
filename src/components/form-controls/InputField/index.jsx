@@ -10,6 +10,11 @@ InputField.propTypes = {
   disable: PropTypes.bool,
 };
 
+InputField.defaultProps = {
+  label: "",
+  disable: false,
+};
+
 function InputField(props) {
   const { form, name, label, disable } = props;
   const {
@@ -28,7 +33,9 @@ function InputField(props) {
           label={label}
           disabled={disable}
           error={!!hasError}
-          helperText={fieldState.error ? fieldState.error.message : ""}
+          helperText={hasError ? errors[name]?.message : ""}
+          variant="outlined"
+          margin="normal"
         />
       )}
     />
